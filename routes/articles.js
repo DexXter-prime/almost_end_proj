@@ -1,27 +1,18 @@
 const express = require('express')
 const router = express.Router()
-const Article = require('./../models/article_model')
-const { checkAuthenticated, checkNotAuthenticated, checkMainLink } = require('./_mid_ware_')
+const Article = require('./../models/article')
 
 
-router.get('/', checkMainLink, async (req, res) => {
-    res.json({})
+router.get('/', (req, res) => {
+    if (req.oidc.user === undefined) {
+        res.render('articles/index')
+    }
+    else {
+        res.render('articles/index_auth', { user: req.oidc.user.email })
+    }
 })
 
-router.get('/index_auth', async (req, res) => {
-    let articles = await Article.find().sort({ currentDate: 'desc' })
-    res.render('articles/index_auth', { articles: articles, user: req.user })
-})
-
-router.get('/index', async (req, res) => {
-    let articles = await Article.find().sort({ currentDate: 'desc' })
-    res.render('articles/index', { articles: articles, user: req.user })
-})
-
-
-router.get('/new', checkAuthenticated, (req, res) => {
-    res.render('articles/new', { article: new Article(), user: req.user })
-})
+//dddd
 
 router.post('/lib', (req, res) => {
     let teach = req.body.teacher
@@ -36,56 +27,62 @@ router.post('/lib', (req, res) => {
 router.post('/lib_name', (req, res) => {
     let name = req.body.proj_name.toLowerCase()
     res.redirect(`/articles/lib?name=${name}`)
-
 })
 
-router.get('/lib', checkAuthenticated, async (req, res) => {
-    let articles = await Article.find().sort({ currentDate: 'desc' })
-    let fullProj = await Article.find({ teacher: req.query.teacher, status: req.query.stat })
-    let statProj = await Article.find({ status: req.query.stat })
-    let teachProj = await Article.find({ teacher: req.query.teacher })
-    let titleProj = await Article.find({title: { $regex: new RegExp('.*' + req.query.name + '.*')}})
-        
-    console.log( typeof req.query.name)
-    console.log(  req.query.name)
-    if (req.query.name == 'undefined' || req.query.name == null) {
-        if ((req.query.teacher == null || req.query.teacher == 'undefined') && (req.query.stat == 100 || req.query.stat == null || req.query.stat == 'undefined')) {
-            res.render('articles/lib', { articles, user: req.user })
-        }
-        else if (!(req.query.stat == 100) && (req.query.teacher == 'undefined' || req.query.teacher == null)) {
-            res.render('articles/lib', { articles: statProj, user: req.user })
-        }
-        else if (!(req.query.teacher == 'undefined' || req.query.teacher == null) && req.query.stat == 100) {
-            res.render('articles/lib', { articles: teachProj, user: req.user })
+router.get('/lib', async (req, res) => {
+    if (req.oidc.user === undefined) {
+        res.render('articles/index')
+    }
+    else {
+        let articles = await Article.find().sort({ currentDate: 'desc' })
+        let fullProj = await Article.find({ teacher: req.query.teacher, status: req.query.stat })
+        let statProj = await Article.find({ status: req.query.stat })
+        let teachProj = await Article.find({ teacher: req.query.teacher })
+        let titleProj = await Article.find({ title: { $regex: new RegExp('.*' + req.query.name + '.*') } })
+
+        console.log(typeof req.query.name)
+        console.log(req.query.name)
+        if (req.query.name == 'undefined' || req.query.name == null) {
+            if ((req.query.teacher == null || req.query.teacher == 'undefined') && (req.query.stat == 100 || req.query.stat == null || req.query.stat == 'undefined')) {
+                res.render('articles/lib', { articles, user: req.oidc.user.email })
+            }
+            else if (!(req.query.stat == 100) && (req.query.teacher == 'undefined' || req.query.teacher == null)) {
+                res.render('articles/lib', { articles: statProj, user: req.oidc.user.email })
+            }
+            else if (!(req.query.teacher == 'undefined' || req.query.teacher == null) && req.query.stat == 100) {
+                res.render('articles/lib', { articles: teachProj, user: req.oidc.user.email })
+            }
+            else {
+                res.render('articles/lib', { articles: fullProj, user: req.oidc.user.email })
+            }
         }
         else {
-            res.render('articles/lib', { articles: fullProj, user: req.user })
+            res.render('articles/lib', { articles: titleProj, user: req.oidc.user.email })
         }
     }
-    else{
-        res.render('articles/lib', {articles: titleProj, user: req.user})
-    }
+
 
 })
 
 
+//ddd
 
-router.get('/login', checkAuthenticated, (req, res) => {
-    res.render('/login', { article: article, user: req.user })
+router.get('/new', (req, res) => {
+    res.render('articles/new', { article: new Article(), user: req.oidc.user.email })
 })
 
-router.get('/:slug', checkAuthenticated, async (req, res) => {
+router.get('/:slug', async (req, res) => {
     let article = await Article.findOne({ slug: req.params.slug })
     if (article == null) {
         res.redirect('/')
     } else {
-        res.render('articles/show', { article: article, user: req.user })
+        res.render('articles/show', { article: article, user: req.oidc.user.email })
     }
 })
 
-router.get('/edit/:id', checkAuthenticated, async (req, res) => {
+router.get('/edit/:id', async (req, res) => {
     const article = await Article.findById(req.params.id)
-    res.render('articles/edit', { article: article, user: req.user })
+    res.render('articles/edit', { article: article, user: req.oidc.user.email })
 })
 
 const saveArticleAndRedirect = (path) => {
@@ -105,22 +102,22 @@ const saveArticleAndRedirect = (path) => {
             res.redirect(`/articles/${article.slug}`)
         } catch (e) {
             console.log(`ERROR IS ${e}`)
-            res.render(`articles/${path}`, { article: article, user: req.user })
+            res.render(`articles/${path}`, { article: article, user: req.oidc.user.email })
         }
     }
 }
 
-router.post('/', checkAuthenticated, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     req.article = new Article()
     next()
 }, saveArticleAndRedirect('new'))
 
-router.put('/:id', checkAuthenticated, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
     req.article = await Article.findById(req.params.id)
     next()
 }, saveArticleAndRedirect('edit'))
 
-router.delete('/:id', checkAuthenticated, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     await Article.findByIdAndDelete(req.params.id)
     res.redirect('/articles/lib')
 })

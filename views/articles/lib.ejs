@@ -78,96 +78,52 @@
 
                     <div class="lib__filter col-md-3 wrapper" style="padding: 20px;">
 
-                        <form action="/articles/lib_name" style="z-index: 4;" method='POST'>
-                        <input type="text" name="proj_name" placeholder="ffs">
-                        <input type="submit">
-                        </form>
-                        <form action="/articles/lib" style="z-index: 4;" method='POST'>
-                            <style>
-                                input {
-                                    display: block;
-                                }
-                            </style>
-                            <label for="">Преподаватель</label>
-                            <p><input type="radio" name="teacher" value="Стельмах">Стельмах<Br>
-                                <input type="radio" name="teacher" value="Пленкин">Пленкин<Br>
-                                <input type="radio" name="teacher" value="Павлов">Павлов
-                            </p>
-                            <label for="">год</label>
-                            <p><input type="radio" name="year" value="2001">2001<Br>
-                                <input type="radio" name="year" value="2002">2002<Br>
-                                <input type="radio" name="year" value="2003">2003
-                            </p>
-                            <label for="">статус</label>
-
-                            <p><input type="radio" name="status" value="2">открыт<Br>
-                                <input type="radio" name="status" value="0">завершен<Br>
-                                <input type="radio" name="status" value="1">закрыт
-                            </p>
-                            <p><input type="submit"></p>
-                        </form>
-
-                        <!--
-                            <div class="filter-search">
-                            <input type="text" placeholder="Искать...">
-                            <svg color="white" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <form class="filter-search" action="/articles/lib_name" method='POST'>
+                        <input type="text" name="proj_name" placeholder="искать...">
+                        <svg color="white" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path
                                     d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg>
-                        </div>
-
+                        </svg>
+                        <input type="submit">
+                        </form>
                         <h3 class="filter-title">фильтрация</h3>
-                        <div class="filter-drop">
-                            <input type="checkbox" id="trigger-mentor" checked="checked" />
-                            <label for="trigger-mentor">наставник
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
+                        <form action="/articles/lib" style="z-index: 4;" method='POST'>                            
+                            <label >преподаватель
                             </label>
 
+                            <div style="  border-left: 1px solid; margin-left: 2em;
+                            padding-left: 5px;">
+                                <p class="filter-drop-list">
+                                    <input type="radio" name="teacher" value="Павлов"><span>Павлов</span>
+                                </p>
+                                <p class="filter-drop-list">
+                                    <input type="radio" name="teacher" value="Пленкин"><span>Пленкин</span>
+                                </p>
+                                <p class="filter-drop-list">
+                                    <input type="radio" name="teacher" value="Стельмах"><span>Стельмах</span>                               
+                                </p>
+                            </div>
                             
+                            
+                            <label >статус
+                                
+                            </label>
+                            <div style="  border-left: 1px solid; margin-left: 2em;
+                            padding-left: 5px;">
+                                <p class="filter-drop-list">
+                                    <input type="radio" name="status" value="2"><span>открыт</span> 
+                                </p>
+                                <p class="filter-drop-list">
+                                    <input type="radio" name="status" value="0"><span>завершен</span>
+                                </p>
+                                <p class="filter-drop-list">
+                                    <input type="radio" name="status" value="1"><span>закрыт</span>
+                                </p>
+                            </div>
 
-                            <ul class="filter-drop-list">
-                                <li>Стельмах</li>
-                                <li>Плёнкин</li>
-                                <li>Григорьев</li>
-                                <li>Павлов</li>
-                            </ul>
-                        </div>
-                        <div class="filter-drop">
-                            <input type="checkbox" id="trigger-year" checked="checked" />
-                            <label for="trigger-year">год
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                            </label>
-                            <ul class="filter-drop-list">
-                                <li>2000</li>
-                                <li>2020</li>
-                                <li>2021</li>
-                            </ul>
-                        </div>
-                        <div class="filter-drop">
-                            <input type="checkbox" id="trigger-status" checked="checked" />
-                            <label for="trigger-status">статус
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                            </label>
-                            <ul class="filter-drop-list">
-                                <li>открыт</li>
-                                <li>закрыт</li>
-                                <li>завершен</li>
-                            </ul>
-                        </div>
-                        -->
+                            <p><input type="submit" class="filter__submit" value="отфильтровать"></p>
+                        </form>
                         
                     </div>
                 </div>

@@ -6,6 +6,16 @@ const {JSDOM } = require('jsdom')
 const dompurify = createDomPurify(new JSDOM().window)
 
 
+//title
+//year of defence 
+//descript
+//teacher
+//status of the project --> 0/1/2
+
+
+//filtration 
+
+
 const articleSchema = mongoose.Schema({
     title: {
         type: String,
@@ -14,13 +24,18 @@ const articleSchema = mongoose.Schema({
     description: {
         type: String
     },
-    markdown: {
+    teacher: {
         type: String,
         required: true
     },
-    currentDate: {
+    status: {
+        type: Number,
+        required: true
+    },
+    dateDefense: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true
     },
     slug: {
         type: String,
@@ -33,13 +48,15 @@ const articleSchema = mongoose.Schema({
     }
 })
 
+
+
 articleSchema.pre('validate', function(next) {
     if (this.title){
         this.slug = slugify(this.title, {lower: true, strict: true})
     }
 
-    if (this.markdown){
-        this.sanitazedHtml = dompurify.sanitize(marked(this.markdown))
+    if (this.description){
+        this.sanitazedHtml = dompurify.sanitize(marked(this.description))
     }
     next()
 

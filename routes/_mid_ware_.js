@@ -1,3 +1,6 @@
+const { requiresAuth } = require('express-openid-connect')
+
+
 exports.checkAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()){
         return next()
@@ -7,10 +10,10 @@ exports.checkAuthenticated = (req, res, next) => {
 }
 
 exports.checkMainLink = (req, res, next) => {
-    if (req.isAuthenticated()){
-        return res.redirect('articles/index_auth')
-    } else {
+    if (req.oidc.user === undefined){
         return res.redirect('articles/index')
+    } else {
+        return res.redirect('articles/index_auth')
     }
 }
 
@@ -20,5 +23,4 @@ exports.checkNotAuthenticated = (req, res, next) => {
     }
 
     next()
-
 }

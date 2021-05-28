@@ -154,6 +154,7 @@
     border: 2px solid #fff;
     border-radius: 30px;
     padding: 5px 10px;
+    height: 60%;
   }
 
   .header__logbtn:hover {
@@ -205,13 +206,12 @@
 
       <div class="header__r-content offset-3 col-md-4 d-inline-flex justify-content-start">
         <h5>
-          <%= user.email %>
+          <%= user %>
         </h5>
-        <form action='/logout?_method=DELETE' , method='POST'>
           <button class='header__logbtn'>
-            Log Out
+            <a href="/logout">Log Out
+            </a>
           </button>
-        </form>
 
       </div>
     </div>
