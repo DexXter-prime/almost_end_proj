@@ -1,0 +1,42 @@
+
+
+<a href='/articles/lib' class="main__back"><svg width="35" height="30" viewBox="0 0 35 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.1783 16.583L18.9775 27.3333L16.3258 29.7493L0 14.8746L16.3258 0L18.9775 2.41595L7.1783 13.1663H34.5266V16.583H7.1783Z" fill="white"/>
+    </svg></a>
+<div class="main__item">
+    <label for='titInp' class="main__item__title">Название</label>
+    <input required type='text' value='<%= article.title%>' name='title' class="main__item__in" id='titInp'>
+</div>
+<script>
+
+</script>
+<div class="main__item">
+    <label for='titInp' class="main__item__title">Описание</label>
+    <textarea  type='text' name='description' class="main__item__in" maxlength="1000" id='titInp'><%= article.description%> </textarea>
+</div>
+
+
+<div class="main__item">
+    <label for='titInp' class="main__item__title">Преподаватель</label>
+    <input required type='text' value='<%= article.teacher%>' name='teacher' class="main__item__in" id='teachInp'>
+</div>
+
+<div class="date main__item">
+    <label class="main__item__title" for='dateDef'>Дата защиты проекта</label>
+    <input type="date" class="main__item__in" id='dateDef' name='dateDefense' value='<%= article.dateDefense.toString()%>'>
+</div>
+
+<div class='form-group mb-4'>
+    <label class="main__item__title" style="display: table;">Статус проекта</label>
+    <select class="main__item__status" aria-label="Default select example" name='status'>
+        <option selected>Статус проекта</option>
+        <option value="0">Проект Завершен</option>
+        <option value="1">Запись закрыта</option>
+        <option value="2">Запись открыта</option>
+    </select>
+</div>
+<div class="main__button">
+    <button type='submit' class="main__buttons__save">
+        Сохранить
+    </button>
+</div>

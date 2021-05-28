@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Авторизация</title>
+        <link rel="stylesheet" type="text/css" href="/public/css/autorize-form.css">
+    </head>
+  <body>
+	<div class="wrapper">
+    <a href='/' class="main__back">
+      <svg width="34" height="35" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.48578 26.2132C7.96508 25.6925 7.96508 24.8483 8.48578 24.3276L23.5707 9.24263C24.0914 8.72193 24.9356 8.72193 25.4563 9.24263C25.977 9.76333 25.977 10.6076 25.4563 11.1282L10.3714 26.2132C9.8507 26.7339 9.00648 26.7339 8.48578 26.2132Z" fill="white"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.48493 9.24261C9.00562 8.72191 9.84984 8.72191 10.3705 9.24261L25.4555 24.3276C25.9762 24.8483 25.9762 25.6925 25.4555 26.2132C24.9348 26.7339 24.0906 26.7339 23.5699 26.2132L8.48493 11.1282C7.96423 10.6075 7.96423 9.76331 8.48493 9.24261Z" fill="white"/>
+        </svg>
+    </a>
+        <h2><%if(messages.error) { %>
+            <%= messages.error %>
+        <%}%>
+    </h2>
+		<h1>Авторизация</h1>
+			<form action='/login' method='POST'>
+				<input type='email' class='form-control' id='email_id' name='email' placeholder="Логин">
+				<input type='password' class='form-control' id='pass_id' name='password'  placeholder="Пароль">
+				<input type="submit" value="Войти">
+			</form>
+		</h1>
+	</div>
+  </body>
+</html>

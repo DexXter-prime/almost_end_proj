@@ -1,0 +1,116 @@
+
+@keyframes gradient-1 {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes gradient-2{
+	from{
+		background-position:100% 50%;
+	}
+
+	50% {
+		background-position: 0% 50%;
+	}
+
+	to{
+		background-position:100% 50%;
+	}
+}
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: linear-gradient(-45deg, #f53844, #42378f);
+	background-size: 200% 200%;
+	animation: gradient-1 10s ease infinite;
+	display: flex;
+	font-family: Montserrat, sans-serif;
+	height: 100vh;	
+}
+
+h1 {
+	color: #fff;
+	font-size: 26px;
+	font-weight: 300;
+	margin: 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.wrapper {
+	background: linear-gradient(-45deg ,#f53844, #42378f);
+	background-size: 200% 200%;
+	animation: gradient-2 10s ease infinite;
+	border-radius: 25px;
+	box-shadow: 0 40px 80px -10px rgba(0,0,0,0.4);
+	height: 500px;
+	margin: auto;
+	padding: 35px 0;
+	width: 600px;
+}
+
+form {
+	margin: 80px auto 0;
+	margin-top: 80px;
+	text-align: center;
+	width: 314px;
+}
+
+input{
+	transition:500ms;
+}
+input[type="email"],
+input[type="password"] {
+	background-size: 20px;
+	border: none;
+	border-radius: 30px;
+	box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+	color: #3e3f4f;
+	font-size: 14px;
+	height: 50px;
+	margin-bottom: 20px;
+	outline: none;
+	padding: 0 15px 0 30px;
+	width: 300px;
+}
+
+input[type="submit"] {
+	background: #3670ff;
+	border: none;
+	border-radius: 30px;
+	box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+	color: #fff;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 400;
+	height: 50px;
+	margin-top: 20px;
+	width: 150px;
+}
+
+input[type="submit"]:hover{
+	border: 2px solid #3670ff; 
+	color: #3670ff;
+}
+
+input:hover{
+	box-shadow: none;
+	background: none;
+	border: 1px solid #fff;  
+	backdrop-filter: none;
+}
+
+.main__back{
+	position: absolute;
+	left: 4vw;
+	top: 2vw;
+}

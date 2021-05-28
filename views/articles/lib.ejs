@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/public/css/lib.css">
+
+    <title>Билиотека проектов</title>
+</head>
+
+<body>
+
+
+
+    <%- include('_forms_navbar.ejs') %>
+
+        <section class="lib">
+            <div class='container'>
+                <div class="row">
+                    <div class="col-md-9 lib__menu">
+                        <a href='/articles/new' class="lib__menu__add">Добавить новый проект</a>
+                        <%articles.forEach(article=> { %>
+                            <div class="lib__menu__item wrapper">
+                                <div
+                                    class="lib__menu__item0 d-inline-flex align-content-center justify-content-between">
+                                    <div class="lib__menu__item__but">
+                                        <form action='/articles/<%= article.id%>?_method=DELETE' method='POST'>
+                                            <button type='submit'><svg width="18" height="20" viewBox="0 0 18 20"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M2.63302 2.53726L3.0243 1.75468C3.30662 1.19004 3.88373 0.833374 4.51502 0.833374H13.485C14.1162 0.833374 14.6934 1.19004 14.9757 1.75468L15.367 2.53726C15.978 2.66867 16.4765 3.13684 16.6329 3.76248L17.0496 5.42915C17.2728 6.32214 16.7299 7.22703 15.8369 7.45028C15.7449 7.47328 15.6511 7.48837 15.5567 7.49542L13.8894 19.1667H4.11054L2.44323 7.49549C1.5807 7.43202 0.900635 6.71211 0.900635 5.83337C0.900635 5.6971 0.917347 5.56135 0.950397 5.42915L1.36706 3.76248C1.52347 3.13684 2.02201 2.66867 2.63302 2.53726ZM4.12744 7.50004H13.8724L12.4439 17.5H5.55601L4.12744 7.50004ZM2.98397 4.16671H3.68168L4.51502 2.50004H13.485L14.3183 4.16671H15.016L15.4327 5.83337H2.5673L2.98397 4.16671Z"
+                                                        fill="white" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                        <a href='/articles/edit/<%= article.id%>'><svg width="18" height="18"
+                                                viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M12.6979 0.666626C13.2435 0.666626 13.7665 0.884476 14.1485 1.26948L16.7326 3.85356C17.1173 4.23829 17.3335 4.7601 17.3335 5.30419C17.3335 5.84828 17.1173 6.37009 16.7326 6.75482L7.298 16.1864C6.71594 16.8579 5.89083 17.2704 4.94558 17.3352H0.666748V16.5019L0.669454 12.9894C0.740447 12.1107 1.14897 11.2936 1.77216 10.7445L11.2462 1.27048C11.6304 0.883984 12.1529 0.666626 12.6979 0.666626ZM4.88673 15.6706C5.33192 15.6391 5.74632 15.4319 6.07908 15.0513L12.3807 8.74972L9.25202 5.62095L2.9135 11.9579C2.57587 12.2566 2.36701 12.6743 2.33341 13.0565V15.6691L4.88673 15.6706ZM10.4307 4.44259L13.5592 7.57121L15.5541 5.57631C15.6262 5.50414 15.6668 5.40626 15.6668 5.30419C15.6668 5.20213 15.6262 5.10424 15.5541 5.03207L12.9677 2.44567C12.8963 2.37375 12.7992 2.33329 12.6979 2.33329C12.5966 2.33329 12.4994 2.37375 12.4281 2.44567L10.4307 4.44259Z"
+                                                    fill="white" />
+                                            </svg>
+                                            </svg>
+                                        </a>
+                                    </div>
+
+                                    <div class="lib_menu_item_inf">
+                                        <div class='lib__menu__item__title'>
+                                            <%= article.title %>
+                                        </div>
+
+                                        <div class="lib__menu__item__status">
+                                            <% if (article.status===0) { %>
+                                                <p>завершен</p>
+                                                <% } else if (article.status===1) { %>
+                                                    <p>запись закрыта</p>
+                                                    <% } else { %>
+                                                        <p>запись открыта</p>
+                                                        <% } %>
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                        <a href='/articles/<%= article.slug %>'
+                                            class="lib__menu__item__more">смотреть</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+
+                    <div class="lib__filter col-md-3 wrapper" style="padding: 20px;">
+
+                        <form action="/articles/lib_name" style="z-index: 4;" method='POST'>
+                        <input type="text" name="proj_name" placeholder="ffs">
+                        <input type="submit">
+                        </form>
+                        <form action="/articles/lib" style="z-index: 4;" method='POST'>
+                            <style>
+                                input {
+                                    display: block;
+                                }
+                            </style>
+                            <label for="">Преподаватель</label>
+                            <p><input type="radio" name="teacher" value="Стельмах">Стельмах<Br>
+                                <input type="radio" name="teacher" value="Пленкин">Пленкин<Br>
+                                <input type="radio" name="teacher" value="Павлов">Павлов
+                            </p>
+                            <label for="">год</label>
+                            <p><input type="radio" name="year" value="2001">2001<Br>
+                                <input type="radio" name="year" value="2002">2002<Br>
+                                <input type="radio" name="year" value="2003">2003
+                            </p>
+                            <label for="">статус</label>
+
+                            <p><input type="radio" name="status" value="2">открыт<Br>
+                                <input type="radio" name="status" value="0">завершен<Br>
+                                <input type="radio" name="status" value="1">закрыт
+                            </p>
+                            <p><input type="submit"></p>
+                        </form>
+
+                        <!--
+                            <div class="filter-search">
+                            <input type="text" placeholder="Искать...">
+                            <svg color="white" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </div>
+
+                        <h3 class="filter-title">фильтрация</h3>
+                        <div class="filter-drop">
+                            <input type="checkbox" id="trigger-mentor" checked="checked" />
+                            <label for="trigger-mentor">наставник
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </label>
+
+                            
+
+                            <ul class="filter-drop-list">
+                                <li>Стельмах</li>
+                                <li>Плёнкин</li>
+                                <li>Григорьев</li>
+                                <li>Павлов</li>
+                            </ul>
+                        </div>
+                        <div class="filter-drop">
+                            <input type="checkbox" id="trigger-year" checked="checked" />
+                            <label for="trigger-year">год
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </label>
+                            <ul class="filter-drop-list">
+                                <li>2000</li>
+                                <li>2020</li>
+                                <li>2021</li>
+                            </ul>
+                        </div>
+                        <div class="filter-drop">
+                            <input type="checkbox" id="trigger-status" checked="checked" />
+                            <label for="trigger-status">статус
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </label>
+                            <ul class="filter-drop-list">
+                                <li>открыт</li>
+                                <li>закрыт</li>
+                                <li>завершен</li>
+                            </ul>
+                        </div>
+                        -->
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <%- include('_form_footer.ejs') %>
+
+
+        <script src="/public/js/particles.min.js"></script>
+        <script src="/public/js/bg.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+<svg width="496" height="336" viewBox="0 0 496 336" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect class="btn-auth" x="68.5" y="0.5" width="359" height="75" rx="17.5" stroke="white"/>
+<rect class="btn-lib" x="0.5" y="260.5" width="495" height="75" rx="17.5" stroke="white"/>
+<path class="vect-index" d="M248 76V260.5" stroke="white"/>
+</svg>

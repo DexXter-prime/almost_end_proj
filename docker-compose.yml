@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+    webserver:
+        build:
+            context: nginx
+            dockerfile: Dockerfile
+        container_name: nginx
+        restart: always
+        networks:
+            - frontend
+            - backend
+        ports:
+            - 80:80
+            - 443:443
+    app:
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: Dockerfile
+        env_file: .env
+        environment:
+            - PORT:5000
+        ports:
+            - 5000:5000
+        networks:
+            - backend
+        container_name: app
+networks:
+    frontend:
+        driver: bridge
+    backend:
+        driver: bridge
